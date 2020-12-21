@@ -115,10 +115,18 @@
             android:padding="15dp"
             android:textColor="#7A8089"
             android:textSize="18sp"
-            tools:text="LinkedIn"/>
+            tools:text="Nokia"/>
 
-
-
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/colorPrimary"
+            android:text="SUBMIT"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
 
 
 
