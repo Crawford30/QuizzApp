@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_quiz_questions.*
 import kotlinx.android.synthetic.main.activity_quiz_questions.view.*
@@ -37,6 +38,9 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         tv_option_three.setOnClickListener(this)
         tv_option_four.setOnClickListener(this)
 
+        //submit btn on click listener
+        btn_submit.setOnClickListener(this)
+
 
 
     }
@@ -44,7 +48,7 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private fun setQuestion() {
 
         //assign  values
-         mCurrentPosition = 1
+         //mCurrentPosition = 1  //for testing purpose
 
 //        val currentQuestion: Question? = mQuestionsList[mCurrentPosition - 1] //-1 because array index starts at 0
 
@@ -56,6 +60,16 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         //so that the buttons(text views) are back to default appearance
 
         defaultOptionView()
+
+
+        //Reset the text to submit each time after set to GO TO NEXT QUESTION
+        if(mCurrentPosition == mQuestionsList!!.size) {
+            btn_submit.text = "FINISH"
+        } else {
+
+            btn_submit.text = "SUBMIT"
+
+        }
 
         //assigning progress the value of current position
         progressBar.progress = mCurrentPosition
@@ -130,7 +144,76 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 //               selectedOptionView(v, 4)
                selectedOptionView(tv_option_four, 1)
            }
+
+           R.id.btn_submit -> {
+
+               if (mSelectedOptionPosition == 0) { //reset it to 0
+
+                   mCurrentPosition ++ //increase current position by 1, go to next question
+
+                   //check when the curent postion is less or > question list size
+
+                   when {
+                       mCurrentPosition <= mQuestionsList!!.size -> {
+                           setQuestion() //set the next question
+                       } else -> {
+                           Toast.makeText(this, "You have successfully completed the Quiz", Toast.LENGTH_SHORT).show()
+
+                       }
+                   }
+
+
+
+               } else {
+
+                   //means the user has selected an option position
+                   val currentQuestion = mQuestionsList?.get(mCurrentPosition - 1) //get the question at the current position - 1
+
+                   //check if correct answer
+                   if (currentQuestion!!.correctAnswer != mSelectedOptionPosition) {
+                       //means we selected a wrong answer
+                       answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
+                   }
+
+                   // correct answer is set to green in any case, need not to be inside if
+                   answerView(currentQuestion!!.correctAnswer, R.drawable.correct_option_border_bg)
+
+                   //if on the last question, the  btn should change to FINISH, else set to GO TO NEXT QUESTION
+                   if(mCurrentPosition == mQuestionsList!!.size) {
+                       btn_submit.text = "FINISH"
+                   } else {
+
+                       btn_submit.text = "GO TO NEXT QUESTION"
+
+                   }
+
+
+               }
+
+           }
        }
+
+    }
+
+    private fun answerView(answer: Int, drawableView: Int) {
+
+        when(answer) {
+            1 -> {
+                tv_option_one.background = ContextCompat.getDrawable(this, drawableView)
+            }
+
+            2 -> {
+                tv_option_two.background = ContextCompat.getDrawable(this, drawableView)
+            }
+
+            3 -> {
+                tv_option_three.background = ContextCompat.getDrawable(this, drawableView)
+            }
+
+            4 -> {
+                tv_option_four.background = ContextCompat.getDrawable(this, drawableView)
+            }
+        }
 
     }
 
