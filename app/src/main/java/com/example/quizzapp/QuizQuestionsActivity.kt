@@ -88,10 +88,10 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
-    //fun for default look
+    //fun for default look, set default layout
 
     private  fun defaultOptionView(){
-        //texviews option
+        //Textviews option(array list of textviews)
         val options = ArrayList<TextView>()
 
         options.add(0, tv_option_one)
@@ -101,7 +101,6 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
         //for loop
         for (option in options) {
-
             //set color
             option.setTextColor(Color.parseColor("#7A8089"))
 
@@ -136,13 +135,13 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
            R.id.tv_option_three -> {
 //               selectedOptionView(v, 3)
-               selectedOptionView(tv_option_three, 1)
+               selectedOptionView(tv_option_three, 3)
            }
 
 
            R.id.tv_option_four -> {
 //               selectedOptionView(v, 4)
-               selectedOptionView(tv_option_four, 1)
+               selectedOptionView(tv_option_four, 4)
            }
 
            R.id.btn_submit -> {
@@ -151,7 +150,7 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
                    mCurrentPosition ++ //increase current position by 1, go to next question
 
-                   //check when the curent postion is less or > question list size
+                   //check when the current position is less or > question list size
 
                    when {
                        mCurrentPosition <= mQuestionsList!!.size -> {
@@ -219,16 +218,16 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun selectedOptionView(tv: TextView, selectedOptionNumber: Int) {
 
-        //reset everything to default view
+        //reset everything to default view, for instance when we click on button 3 reset the previously selected
         defaultOptionView()
 
-        //current button we clicked on
+        //current button we clicked on. selectedOptionNumber will be the new selected position
         mSelectedOptionPosition = selectedOptionNumber
 
         //set text view passed
         tv.setTextColor(Color.parseColor("#363A43"))
 
-        //set typeface
+        //set typeface, it can be done this way or  tv.setTypeface(tv.typeface, Typeface.BOLD)
        // tv.typeface = Typeface.DEFAULT
 
         tv.setTypeface(tv.typeface, Typeface.BOLD)
