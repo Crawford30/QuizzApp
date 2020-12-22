@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_quiz_questions.view.*
 
 class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
-    //variable to work with quizz
+    //variable to work with Quiz
     private var mCurrentPosition: Int = 1
     private var mQuestionsList: ArrayList<Question>? = null //set to null, we shall initialise later
     private var mSelectedOptionPosition: Int = 0
@@ -64,7 +64,11 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
         //Reset the text to submit each time after set to GO TO NEXT QUESTION
         if(mCurrentPosition == mQuestionsList!!.size) {
+
+
+            //on the last screen or last question display finish
             btn_submit.text = "FINISH"
+
         } else {
 
             btn_submit.text = "SUBMIT"
@@ -91,7 +95,8 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     //fun for default look, set default layout
 
     private  fun defaultOptionView(){
-        //Textviews option(array list of textviews)
+
+        //TextViews option(array list of TextViews)
         val options = ArrayList<TextView>()
 
         options.add(0, tv_option_one)
@@ -101,6 +106,7 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
         //for loop
         for (option in options) {
+
             //set color
             option.setTextColor(Color.parseColor("#7A8089"))
 
@@ -148,14 +154,17 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
                if (mSelectedOptionPosition == 0) { //reset it to 0
 
-                   mCurrentPosition ++ //increase current position by 1, go to next question
+                   mCurrentPosition ++ //if selected position is 0, increase current position by 1, go to next question
 
                    //check when the current position is less or > question list size
 
                    when {
                        mCurrentPosition <= mQuestionsList!!.size -> {
+
                            setQuestion() //set the next question
+
                        } else -> {
+
                            Toast.makeText(this, "You have successfully completed the Quiz", Toast.LENGTH_SHORT).show()
 
                        }
@@ -165,26 +174,35 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
                } else {
 
-                   //means the user has selected an option position
-                   val currentQuestion = mQuestionsList?.get(mCurrentPosition - 1) //get the question at the current position - 1
+                   //means the user has selected an option position and we do not have mSelectedPosition = 0
+
+                       //Hence we create a question
+                   val question = mQuestionsList?.get(mCurrentPosition - 1) //get the question at the current position - 1
 
                    //check if correct answer
-                   if (currentQuestion!!.correctAnswer != mSelectedOptionPosition) {
+                   if (question!!.correctAnswer != mSelectedOptionPosition) {
+
                        //means we selected a wrong answer
                        answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
                    }
 
                    // correct answer is set to green in any case, need not to be inside if
-                   answerView(currentQuestion!!.correctAnswer, R.drawable.correct_option_border_bg)
+                   answerView(question!!.correctAnswer, R.drawable.correct_option_border_bg)
+
 
                    //if on the last question, the  btn should change to FINISH, else set to GO TO NEXT QUESTION
                    if(mCurrentPosition == mQuestionsList!!.size) {
+
                        btn_submit.text = "FINISH"
+
                    } else {
 
                        btn_submit.text = "GO TO NEXT QUESTION"
 
                    }
+
+                   //====reset the selected position to 0, very important
+                   mSelectedOptionPosition = 0
 
 
                }
@@ -194,6 +212,8 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+
+    //==use in submit btn (time: 1:35:29)========
     private fun answerView(answer: Int, drawableView: Int) {
 
         when(answer) {
@@ -216,6 +236,9 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+
+
+    //========SELECTED OPTION VIEW====
     private fun selectedOptionView(tv: TextView, selectedOptionNumber: Int) {
 
         //reset everything to default view, for instance when we click on button 3 reset the previously selected
