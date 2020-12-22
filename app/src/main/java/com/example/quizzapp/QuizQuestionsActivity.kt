@@ -19,6 +19,8 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private var mCurrentPosition: Int = 1
     private var mQuestionsList: ArrayList<Question>? = null //set to null, we shall initialise later
     private var mSelectedOptionPosition: Int = 0
+    private var mCorrectAnswers: Int  = 0 //set the value each time we set the green background
+
 
 
 
@@ -46,6 +48,8 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setQuestion() {
+
+        //=====TO DO: can check if a button pressed here===
 
         //assign  values
          //mCurrentPosition = 1  //for testing purpose
@@ -184,6 +188,9 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
                        //means we selected a wrong answer
                        answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
+                   } else {
+                       //correct answer
+                       mCorrectAnswers ++ //increase it by 1
                    }
 
                    // correct answer is set to green in any case, need not to be inside if
