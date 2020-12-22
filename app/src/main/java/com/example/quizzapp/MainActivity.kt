@@ -34,6 +34,11 @@ class MainActivity : AppCompatActivity() {
        } else {
            //if text not empty
            val intent = Intent(this, QuizQuestionsActivity::class.java)
+
+           //======pass the value thru intent=====
+           intent.putExtra(Constants.USER_NAME, et_name.text.toString() )
+
+
            startActivity(intent)
 
            //close the current activity

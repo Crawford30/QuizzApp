@@ -1,6 +1,11 @@
 package com.example.quizzapp
 
 object  Constants {
+
+    const val USER_NAME: String = "user_name"
+    const val TOTAL_QUESTIONS: String = "total_questions"
+    const val CORRECT_ANSWERS: String = "correct_answers"
+
     // TODO (STEP 6: Create a list of questions using the Question data model class. And add all the flag images to the drawable folder to add it in the list.)
     // START
     fun getQuestions(): ArrayList<Question> {
