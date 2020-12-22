@@ -188,6 +188,8 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
                                startActivity(intent)
 
+                                finish()
+
                        }
                    }
 
